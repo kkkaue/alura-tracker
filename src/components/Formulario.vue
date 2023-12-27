@@ -1,31 +1,28 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
+import Cronometro from './Cronometro.vue'
 
 export default defineComponent({
-  name: 'FormularioComponent',
-  data() {
-    return {
-      tempoEmSegundos: 0,
-      cronometro: 0,
-    }
-  },
-  computed: {
-    tempoDecorrido() : string {
-      return new Date(this.tempoEmSegundos * 1000).toISOString().substr(11, 8)
-    }
-  },
-  methods: {
-    iniciarTarefa() {
-      this.cronometro = setInterval(() => {
-        this.tempoEmSegundos++
-      }, 1000)
-      console.log('iniciar tarefa')
+    name: 'FormularioComponent',
+    data() {
+        return {
+            tempoEmSegundos: 0,
+            cronometro: 0,
+        };
     },
-    finalizarTarefa() {
-      clearInterval(this.cronometro)
-      console.log('finalizar tarefa')
+    methods: {
+        iniciarTarefa() {
+            this.cronometro = setInterval(() => {
+                this.tempoEmSegundos++;
+            }, 1000);
+        },
+        finalizarTarefa() {
+            clearInterval(this.cronometro);
+        }
+    },
+    components: { 
+      Cronometro,
     }
-  }
 })
 </script>
 
@@ -37,11 +34,7 @@ export default defineComponent({
       </div>
       <div class="column">
         <div class="is-flex is-align-items-center is-justify-content-space-between">
-          <section>
-            <strong>
-              {{ tempoDecorrido }}
-            </strong>
-          </section>
+          <Cronometro :tempoEmSegundos="tempoEmSegundos" />
           <button class="button" @click="iniciarTarefa">
             <span class="icon">
               <i class="fas fa-play"></i>

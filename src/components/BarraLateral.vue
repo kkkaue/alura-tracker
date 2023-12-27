@@ -1,3 +1,11 @@
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  name: 'BarraLateral'
+})
+</script>
+
 <template>
   <header>
     <h1>
@@ -5,14 +13,6 @@
     </h1>
   </header>
 </template>
-
-<script setup lang="ts">
-import { defineComponent } from 'vue'
-
-defineComponent({
-  name: 'BarraLateral'
-})
-</script>
 
 <style scoped>
   header {
