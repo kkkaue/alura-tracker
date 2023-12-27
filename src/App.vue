@@ -16,12 +16,16 @@ export default defineComponent({
 },
   data() {
     return {
-      tarefas: [] as ITarefa[]
+      tarefas: [] as ITarefa[],
+      modoEscuroAtivo: false,
     }
   },
   methods: {
     adicionarTarefa(tarefa: ITarefa) {
       this.tarefas.push(tarefa)
+    },
+    alterarTema(modoEscuroAtivo: boolean) {
+      this.modoEscuroAtivo = modoEscuroAtivo
     }
   },
   computed: {
@@ -33,11 +37,11 @@ export default defineComponent({
 </script>
 
 <template>
-  <main class="columns is-gapless is-multiline">
+  <main :class="{ 'modo-escuro': modoEscuroAtivo }" class="columns is-gapless is-multiline">
     <div class="column is-one-quarter">
-      <BarraLateral />
+      <BarraLateral @temaAlterado="alterarTema" />
     </div>
-    <div class="column is-three-quarters">
+    <div class="column is-three-quarters conteudo">
       <Formulario @adicionarTarefa="adicionarTarefa" />
       <div class="lista">
         <Tarefa 
@@ -56,5 +60,20 @@ export default defineComponent({
 <style scoped>
 .lista {
   padding: 1.25rem;
+}
+
+main {
+  --bg-primario: #fff;
+  --texto-primario: #000;
+}
+
+main.modo-escuro {
+  --bg-primario: #2b2d42;
+  --texto-primario: #ddd;
+}
+
+.conteudo {
+  background: var(--bg-primario);
+  color: var(--texto-primario);
 }
 </style>
