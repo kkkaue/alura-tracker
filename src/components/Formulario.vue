@@ -14,11 +14,14 @@ export default defineComponent({
     },
     methods: {
       finalizarTarefa(tempoEmSegundos: number) : void {
-        console.log(tempoEmSegundos);
-        console.log(this.descricao);
+        this.$emit('adicionarTarefa', {
+          duracaoEmSegundos: tempoEmSegundos,
+          descricao: this.descricao,
+        });
         this.descricao = '';
       }
-    }
+    },
+    emits: ['adicionarTarefa']
 })
 </script>
 
