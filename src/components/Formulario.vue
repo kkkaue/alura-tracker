@@ -1,8 +1,29 @@
-<script setup lang="ts">
+<script lang="ts">
 import { defineComponent } from 'vue'
 
-defineComponent({
-  name: 'FormularioComponent'
+export default defineComponent({
+  name: 'FormularioComponent',
+  data() {
+    return {
+      tempoEmSegundos: 0
+    }
+  },
+  computed: {
+    tempoDecorrido() : string {
+      return new Date(this.tempoEmSegundos * 1000).toISOString().substr(11, 8)
+    }
+  },
+  methods: {
+    iniciarTarefa() {
+      setInterval(() => {
+        this.tempoEmSegundos++
+      }, 1000)
+      console.log('iniciar tarefa')
+    },
+    finalizarTarefa() {
+      console.log('finalizar tarefa')
+    }
+  }
 })
 </script>
 
@@ -15,15 +36,17 @@ defineComponent({
       <div class="column">
         <div class="is-flex is-align-items-center is-justify-content-space-between">
           <section>
-            <strong>00:00:00</strong>
+            <strong>
+              {{ tempoDecorrido }}
+            </strong>
           </section>
-          <button class="button">
+          <button class="button" @click="iniciarTarefa">
             <span class="icon">
               <i class="fas fa-play"></i>
             </span>
             <span>play</span>
           </button>
-          <button class="button">
+          <button class="button" @click="finalizarTarefa">
             <span class="icon">
               <i class="fas fa-stop"></i>
             </span>
