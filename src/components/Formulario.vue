@@ -1,27 +1,23 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
-import Cronometro from './Cronometro.vue'
+import Temporizador from './Temporizador.vue';
 
 export default defineComponent({
     name: 'FormularioComponent',
     data() {
-        return {
-            tempoEmSegundos: 0,
-            cronometro: 0,
-        };
-    },
-    methods: {
-        iniciarTarefa() {
-            this.cronometro = setInterval(() => {
-                this.tempoEmSegundos++;
-            }, 1000);
-        },
-        finalizarTarefa() {
-            clearInterval(this.cronometro);
-        }
+      return {
+        descricao: '',
+      }
     },
     components: { 
-      Cronometro,
+      Temporizador
+    },
+    methods: {
+      finalizarTarefa(tempoEmSegundos: number) : void {
+        console.log(tempoEmSegundos);
+        console.log(this.descricao);
+        this.descricao = '';
+      }
     }
 })
 </script>
@@ -29,25 +25,20 @@ export default defineComponent({
 <template>
   <div class="box">
     <div class="columns">
-      <div class="column is-8" role="form" aria-label="Formulário para a criação de uma nova tarefa">
-        <input type="text" class="input" placeholder="Qual tarefa você deseja iniciar?">
+      <div
+        class="column is-8"
+        role="form"
+        aria-label="Formulário para a criação de uma nova tarefa"
+      >
+        <input 
+          type="text" 
+          class="input" 
+          placeholder="Qual tarefa você deseja iniciar?"
+          v-model="descricao"
+        />
       </div>
       <div class="column">
-        <div class="is-flex is-align-items-center is-justify-content-space-between">
-          <Cronometro :tempoEmSegundos="tempoEmSegundos" />
-          <button class="button" @click="iniciarTarefa">
-            <span class="icon">
-              <i class="fas fa-play"></i>
-            </span>
-            <span>play</span>
-          </button>
-          <button class="button" @click="finalizarTarefa">
-            <span class="icon">
-              <i class="fas fa-stop"></i>
-            </span>
-            <span>stop</span>
-          </button>
-        </div>
+        <Temporizador @temporizador-finalizado="finalizarTarefa" />
       </div>
     </div>
   </div>

@@ -24,5 +24,3 @@ export default defineComponent({
     </strong>
   </section>
 </template>
-
-<style scoped></style>
